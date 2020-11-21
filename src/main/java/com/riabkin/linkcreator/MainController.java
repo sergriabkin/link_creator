@@ -14,6 +14,9 @@ public class MainController {
     @Value("${link.start}")
     private String linkStart;
 
+    @Value("${user.link.start}")
+    private String userLinkStart;
+
     @GetMapping
     public ModelAndView index(ModelAndView modelAndView) {
 
@@ -25,12 +28,16 @@ public class MainController {
 
     @PostMapping
     public ModelAndView handleCreateLink(ModelAndView modelAndView, Link link) {
-        System.out.println(link.getUserLink());
-        String createdLink = link.getUserLink() + linkStart + link.getUserLink();
+        String createdLink = getCreatedLink(link);
         link.setCreatedLink(createdLink);
         modelAndView.addObject("link", link);
         modelAndView.setViewName("index");
         return modelAndView;
+    }
+
+    private String getCreatedLink(Link link) {
+        String linkEnding = link.getUserLink().replaceAll(userLinkStart, "");
+        return link.getUserLink() + linkStart + linkEnding;
     }
 
 }
