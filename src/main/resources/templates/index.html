@@ -23,19 +23,31 @@
 
         <h1>Please enter your link:</h1>
 
-        <form name="inputTextForm" action="#" th:action="@{/}" th:object="${link}" method = "POST">
+        <form name="userLink" action="#" th:action="@{/}" th:object="${link}" method="POST">
             <br/>
-            <textarea rows = "5" cols = "60" name = "user-link" th:field="*{userLink}"></textarea>
+            <textarea rows="5" cols="60" name="user-link" th:field="*{userLink}"></textarea>
             <br/>
             <button type="submit">Create Link</button>
+            <button onclick="copyToClipboard()">Copy to clipboard</button>
         </form>
 
         <br/>
-        <textarea rows = "5" cols = "60" name = "created-link" th:text="${link.createdLink}"></textarea>
+        <textarea id="createdLink" name="createdLink" rows="5" cols="60" th:text="${link.createdLink}"></textarea>
     </div>
 
 </main>
 
 <script type="text/javascript" th:src="@{webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
+<script>
+function copyToClipboard() {
+  var copyText = document.getElementById("createdLink");
+  copyText.select();
+  copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+  document.execCommand("copy");
+  alert("Copied the text: " + copyText.value);
+}
+
+</script>
+
 </body>
 </html>
