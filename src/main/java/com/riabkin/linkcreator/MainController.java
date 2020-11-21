@@ -19,9 +19,7 @@ public class MainController {
 
     @GetMapping
     public ModelAndView index(ModelAndView modelAndView) {
-
         modelAndView.addObject("link", new Link());
-
         modelAndView.setViewName("index");
         return modelAndView;
     }
